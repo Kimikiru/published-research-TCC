@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4C4DE2512F0BD69E000609C9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE2502F0BD69E000609C9 /* Foundation.framework */; };
+		4C4DE2532F0BD6AA000609C9 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE2522F0BD6AA000609C9 /* CoreServices.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		4C4DE2282F0BD640000609C9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -23,15 +28,59 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		4C4DE2462F0BD663000609C9 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4C4DE2182F0BD63F000609C9 /* TCCProactiveDetector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TCCProactiveDetector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4DE2272F0BD640000609C9 /* TCCProactiveDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TCCProactiveDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C4DE2312F0BD640000609C9 /* TCCProactiveDetectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TCCProactiveDetectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C4DE2482F0BD663000609C9 /* TCCGuardianAgent */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TCCGuardianAgent; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C4DE2502F0BD69E000609C9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4C4DE2522F0BD6AA000609C9 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4C4DE2562F0BD6FC000609C9 /* Exceptions for "TCCProactiveDetector" folder in "TCCProactiveDetector" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/AlertCenter.swift,
+				Core/FSEventsMonitor.swift,
+				Core/ProcessMonitor.swift,
+				Core/RuleEngine.swift,
+				Core/TCCSnapshotManager.swift,
+			);
+			target = 4C4DE2172F0BD63F000609C9 /* TCCProactiveDetector */;
+		};
+		4C4DE2582F0BD700000609C9 /* Exceptions for "TCCProactiveDetector" folder in "TCCGuardianAgent" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/AlertCenter.swift,
+				Core/FSEventsMonitor.swift,
+				Core/ProcessMonitor.swift,
+				Core/RuleEngine.swift,
+				Core/TCCSnapshotManager.swift,
+			);
+			target = 4C4DE2472F0BD663000609C9 /* TCCGuardianAgent */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		4C4DE21A2F0BD63F000609C9 /* TCCProactiveDetector */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4C4DE2562F0BD6FC000609C9 /* Exceptions for "TCCProactiveDetector" folder in "TCCProactiveDetector" target */,
+				4C4DE2582F0BD700000609C9 /* Exceptions for "TCCProactiveDetector" folder in "TCCGuardianAgent" target */,
+			);
 			path = TCCProactiveDetector;
 			sourceTree = "<group>";
 		};
@@ -43,6 +92,11 @@
 		4C4DE2342F0BD640000609C9 /* TCCProactiveDetectorUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TCCProactiveDetectorUITests;
+			sourceTree = "<group>";
+		};
+		4C4DE2492F0BD663000609C9 /* TCCGuardianAgent */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TCCGuardianAgent;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,6 +123,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C4DE2452F0BD663000609C9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4C4DE2512F0BD69E000609C9 /* Foundation.framework in Frameworks */,
+				4C4DE2532F0BD6AA000609C9 /* CoreServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,6 +141,8 @@
 				4C4DE21A2F0BD63F000609C9 /* TCCProactiveDetector */,
 				4C4DE22A2F0BD640000609C9 /* TCCProactiveDetectorTests */,
 				4C4DE2342F0BD640000609C9 /* TCCProactiveDetectorUITests */,
+				4C4DE2492F0BD663000609C9 /* TCCGuardianAgent */,
+				4C4DE24F2F0BD69E000609C9 /* Frameworks */,
 				4C4DE2192F0BD63F000609C9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,8 +153,18 @@
 				4C4DE2182F0BD63F000609C9 /* TCCProactiveDetector.app */,
 				4C4DE2272F0BD640000609C9 /* TCCProactiveDetectorTests.xctest */,
 				4C4DE2312F0BD640000609C9 /* TCCProactiveDetectorUITests.xctest */,
+				4C4DE2482F0BD663000609C9 /* TCCGuardianAgent */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4C4DE24F2F0BD69E000609C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C4DE2522F0BD6AA000609C9 /* CoreServices.framework */,
+				4C4DE2502F0BD69E000609C9 /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +238,28 @@
 			productReference = 4C4DE2312F0BD640000609C9 /* TCCProactiveDetectorUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		4C4DE2472F0BD663000609C9 /* TCCGuardianAgent */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C4DE24C2F0BD663000609C9 /* Build configuration list for PBXNativeTarget "TCCGuardianAgent" */;
+			buildPhases = (
+				4C4DE2442F0BD663000609C9 /* Sources */,
+				4C4DE2452F0BD663000609C9 /* Frameworks */,
+				4C4DE2462F0BD663000609C9 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4C4DE2492F0BD663000609C9 /* TCCGuardianAgent */,
+			);
+			name = TCCGuardianAgent;
+			packageProductDependencies = (
+			);
+			productName = TCCGuardianAgent;
+			productReference = 4C4DE2482F0BD663000609C9 /* TCCGuardianAgent */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +281,9 @@
 						CreatedOnToolsVersion = 26.2;
 						TestTargetID = 4C4DE2172F0BD63F000609C9;
 					};
+					4C4DE2472F0BD663000609C9 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 				};
 			};
 			buildConfigurationList = 4C4DE2132F0BD63F000609C9 /* Build configuration list for PBXProject "TCCProactiveDetector" */;
@@ -203,6 +303,7 @@
 				4C4DE2172F0BD63F000609C9 /* TCCProactiveDetector */,
 				4C4DE2262F0BD640000609C9 /* TCCProactiveDetectorTests */,
 				4C4DE2302F0BD640000609C9 /* TCCProactiveDetectorUITests */,
+				4C4DE2472F0BD663000609C9 /* TCCGuardianAgent */,
 			);
 		};
 /* End PBXProject section */
@@ -247,6 +348,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4C4DE22D2F0BD640000609C9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4C4DE2442F0BD663000609C9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -533,6 +641,32 @@
 			};
 			name = Release;
 		};
+		4C4DE24D2F0BD663000609C9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MP7XFD2L8G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4C4DE24E2F0BD663000609C9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MP7XFD2L8G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -568,6 +702,15 @@
 			buildConfigurations = (
 				4C4DE2422F0BD640000609C9 /* Debug */,
 				4C4DE2432F0BD640000609C9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C4DE24C2F0BD663000609C9 /* Build configuration list for PBXNativeTarget "TCCGuardianAgent" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4C4DE24D2F0BD663000609C9 /* Debug */,
+				4C4DE24E2F0BD663000609C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
