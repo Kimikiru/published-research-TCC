@@ -1,6 +1,6 @@
 # TCC Proactive Detector — Proactive Defense Against TCC Manipulation on macOS
 
-**Status:** research prototype, ~75% complete
+**Status:** early-stage research prototype — individual monitoring components implemented and independently functional; end-to-end detection pipeline not yet wired together
 **Platform:** macOS 15–26
 **Language:** Swift
 **Domain:** macOS endpoint security / blue team
@@ -32,6 +32,8 @@ Attackers can manipulate the TCC database through several documented vectors:
 
 The hypothesis this project tests: if these precursor behaviors are monitored and correlated in real time, manipulation attempts can be flagged and blocked *before* `TCC.db` is actually altered — closing the detection gap left by reactive tools.
 
+> Current build monitors a local test database (`TCC_test.db`) and a test directory rather than the real system `/Library/Application Support/com.apple.TCC/TCC.db`. Reading the real path requires Full Disk Access entitlement and interacts with SIP; the test stand-in lets the detection logic be validated in isolation before that integration step.
+
 ## Comparison to existing solutions
 
 | Solution | Detection point | Reaction time | Proactive | Detects attack prep |
@@ -41,7 +43,7 @@ The hypothesis this project tests: if these precursor behaviors are monitored an
 | Built-in macOS | Post-factum | Medium | No | No |
 | **This project** | **Pre-factum** | **< 1s (target)** | **Yes** | **Yes** |
 
-## Architecture
+## Architecture (target design)
 
 ```
 TCC proactive detector
@@ -67,7 +69,23 @@ TCC proactive detector
     └── TimelineView
 ```
 
-## Detection algorithm
+This is the design the project is working toward. Implementation status per component below.
+
+## Implementation status
+
+| Component | State | Notes |
+|---|---|---|
+| `ProcessMonitor` | **Implemented** | Polls running processes every second, tracks a PID baseline, flags spawns matching known-suspicious commands (`osascript`, `sudo`, `tccutil`) |
+| `FSEventsMonitor` | **Implemented** | Wired to the native FSEvents API, watches a target directory and classifies create/modify/delete/rename events |
+| `TCCSnapshotManager` | **Implemented (test DB)** | Reads/diffs entries via SQLite3 against a local test database standing in for the real `TCC.db` |
+| `RuleEngine` | **Stub** | Placeholder scoring logic (two hardcoded string checks); not the weighted model described below |
+| `RiskEngine` | **Not wired** | The intended weighted-scoring struct exists in code but isn't connected to any monitor's output yet |
+| `AlertCenter` | **Stub** | Dispatches a console message; no real alerting pipeline yet |
+| `EnvInspector`, `LogMonitor` | **Not started** | |
+| `Models`, `Storage`, `UI` | **Not started** | |
+| End-to-end pipeline (monitor → correlate → score → alert) | **Not connected** | Monitors currently print detections directly; nothing routes through `RuleEngine`/`RiskEngine`/`AlertCenter` yet |
+
+## Detection algorithm (target)
 
 1. Initialize monitoring modules (process, filesystem, environment, log)
 2. Collect process and filesystem events system-wide
@@ -75,7 +93,9 @@ TCC proactive detector
 4. Compute a weighted risk score
 5. Decide whether to raise an alert based on score threshold
 
-## Risk scoring model
+Steps 1–2 are implemented per-monitor; steps 3–5 (correlation, scoring, alerting) are designed but not yet connected to live monitor output.
+
+## Risk scoring model (target)
 
 | Factor | Description | Weight |
 |---|---|---|
@@ -84,15 +104,13 @@ TCC proactive detector
 | Anomalous environment variables | Possible TCC bypass via env-var override | 0.2 |
 | Not on process whitelist | Execution of unrecognized binary | 0.1 |
 
-## Current state
-
-- Core module architecture implemented (see above)
-- Detection rules and risk scoring model designed and partially implemented
-- Prototype demo app functional at ~75% — not yet fully validated against a broader set of simulated attacks
-- Target reaction time (<1s) is a design goal; empirical benchmarking is in progress, not yet published
+This weighting scheme exists in code as a standalone struct but is not yet fed by monitor output — see Implementation status above.
 
 ## Roadmap
 
+- Wire `ProcessMonitor` / `FSEventsMonitor` output into `RuleEngine` → `RiskEngine` → `AlertCenter` as an actual pipeline
+- Replace the `TCC_test.db` / test-directory stand-ins with the real system path, gated on Full Disk Access entitlement
+- Implement `EnvInspector`, `LogMonitor`, and the `Models`/`Storage`/`UI` layers
 - Extend monitoring to additional protected system tables beyond `TCC.db`
 - Add ML-based prediction of attack likelihood from correlated signal history
 - Package for integration into enterprise macOS security monitoring stacks
